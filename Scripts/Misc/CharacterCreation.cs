@@ -759,7 +759,7 @@ namespace Server.Misc
 
         private static CityInfo GetStartLocation(CharacterCreatedEventArgs args, bool isYoung)
         {
-            bool useHaven = isYoung;
+            bool useHaven = Convert.ToBoolean(Shard.Xml("startloc/usehaven")); //isYoung;
 			Map[] sm = new Map[] { Map.Felucca, Map.Trammel, Map.Ilshenar, Map.Malas, Map.Tokuno, Map.TerMur }; // array used to indicate map 0-5
 			string[] sp = new string[] { "startloc/default", "startloc/warrior", "startloc/mage", "startloc/blacksmith", "startloc/necro", "startloc/paladin", "startloc/samurai", "startloc/ninja" };
 			string[] sl = Shard.Xml(sp[0]).Split(','); // string array made of xml entry corresponding to chosen profession, or default
@@ -774,7 +774,7 @@ namespace Server.Misc
             ClientFlags flags = args.State == null ? ClientFlags.None : args.State.Flags;
             Mobile m = args.Mobile;
 
-            switch ( args.Profession ) // Check client flags for AOS / SE professions
+            switch ( args.Profession ) // Check client flags for AOS / SE professions set usehaven true if failed
             {
 				case 4: //Necro
                     {
@@ -843,7 +843,7 @@ namespace Server.Misc
                       break;
                   }
 			} 
-			if (useHaven) // if young or client flags check in profession switch failed override chosen location and return default
+			if (useHaven || isYoung) // if young or if usehaven is true, override chosen location and return default
 			{
 				sl = Shard.Xml(sp[0]).Split(',');
 				return new CityInfo(sl[0], sl[1], Convert.ToInt32(sl[2]), Convert.ToInt32(sl[3]), Convert.ToInt32(sl[4]), sm[Convert.ToInt32(sl[5])]);
