@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <startupinfo>
-	<shardname>My Shard</shardname>
-	<clientpath>Muls</clientpath>
-	<saves>15</saves>
-	<rewards>30</rewards>
-	<skillcap>7000</skillcap>
-	<statcap>225</statcap>
-	<housedecay>5</housedecay>
-	<bonding>7</bonding>
-	<autoacc>true</autoacc>
-	<accperip>2</accperip>
-	<ipperacc>10</ipperacc>
-	<maxhouses>1</maxhouses>
-	<port>2593</port>
-	<era>10</era>
-	<startloc>
-		<usehaven>true</usehaven>
-		<default>New Haven,The Bountiful Harvest Inn,3503,2574,14,1</default>
-		<warrior>Britain,Sweet Dreams Inn,1496,1628,10,0</warrior>
-		<mage>Britain,Sweet Dreams Inn,1496,1628,10,0</mage>
-		<blacksmith>Britain,Sweet Dreams Inn,1496,1628,10,0</blacksmith>
-		<necro>Umbra,Mardoth's Tower,2114,1301,-50,3</necro>
-		<paladin>Britain,Sweet Dreams Inn,1496,1628,10,0</paladin>
-		<samurai>Samurai DE,Haoti's Grounds,368,780,-1,3</samurai>
-		<ninja>Ninja DE,Enimo's Residence,414,823,-1,3</ninja>
-	</startloc>
+  <shardname>My Shard</shardname>
+  <clientpath>C:\Program Files (x86)\Electronic Arts\Ultima Online Classic</clientpath>
+  <saves>15</saves>
+  <rewards>30</rewards>
+  <skillcap>7000</skillcap>
+  <statcap>225</statcap>
+  <housedecay>5</housedecay>
+  <bonding>7</bonding>
+  <autoacc>true</autoacc>
+  <accperip>2</accperip>
+  <ipperacc>10</ipperacc>
+  <maxhouses>1</maxhouses>
+  <port>2593</port>
+  <era>10</era>
+  <startloc>
+    <usehaven>true</usehaven>
+    <default>New Haven,The Bountiful Harvest Inn,3503,2574,14,1</default>
+    <warrior>Britain,Sweet Dreams Inn,1496,1628,10,0</warrior>
+    <mage>Britain,Sweet Dreams Inn,1496,1628,10,0</mage>
+    <blacksmith>Britain,Sweet Dreams Inn,1496,1628,10,0</blacksmith>
+    <necro>Umbra,Mardoth's Tower,2114,1301,-50,3</necro>
+    <paladin>Britain,Sweet Dreams Inn,1496,1628,10,0</paladin>
+    <samurai>Samurai DE,Haoti's Grounds,368,780,-1,3</samurai>
+    <ninja>Ninja DE,Enimo's Residence,414,823,-1,3</ninja>
+  </startloc>
 </startupinfo>
