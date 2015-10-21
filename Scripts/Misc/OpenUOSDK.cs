@@ -19,7 +19,7 @@ namespace Server
 	    #if MONO
 	        public static string ClientDataPath = Core.BaseDirectory + "/muls";
 	    #else
-	        public static string ClientDataPath = StartupReader.GetClientPath();
+	        public static string ClientDataPath = Shard.Xml("clientpath");
 	    #endif
 		public static AnimationDataFactory AnimationDataFactory { get; set; }
 		public static AnimationFactory AnimationFactory { get; set; }

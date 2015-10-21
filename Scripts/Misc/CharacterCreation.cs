@@ -10,7 +10,7 @@ namespace Server.Misc
 {
     public class CharacterCreation
     {
-        private static readonly CityInfo m_NewHavenInfo = new CityInfo("New Haven", "The Bountiful Harvest Inn", 3503, 2574, 14, Map.Trammel);
+        //private static readonly CityInfo m_NewHavenInfo; = new CityInfo("New Haven", "The Bountiful Harvest Inn", 3503, 2574, 14, Map.Trammel);
         private static Mobile m_Mobile;
 
 		[CallPriority(Int32.MinValue)]
@@ -680,8 +680,8 @@ namespace Server.Misc
             newChar.Hue = newChar.Race.ClipSkinHue(args.Hue & 0x3FFF) | 0x8000;
 
             newChar.Hunger = 20;
-            newChar.SkillsCap = StartupReader.GetSkillcap();
-            newChar.StatCap = StartupReader.GetStatcap();
+            newChar.SkillsCap = Convert.ToInt32(Shard.Xml("skillcap"));
+            newChar.StatCap = Convert.ToInt32(Shard.Xml("statcap"));
 
             bool young = false;
 
@@ -759,25 +759,28 @@ namespace Server.Misc
 
         private static CityInfo GetStartLocation(CharacterCreatedEventArgs args, bool isYoung)
         {
-            if (Core.ML)
+            bool useHaven = isYoung;
+			Map[] sm = new Map[] { Map.Felucca, Map.Trammel, Map.Ilshenar, Map.Malas, Map.Tokuno, Map.TerMur }; // array used to indicate map 0-5
+			string[] sp = new string[] { "startloc/default", "startloc/warrior", "startloc/mage", "startloc/blacksmith", "startloc/necro", "startloc/paladin", "startloc/samurai", "startloc/ninja" };
+			string[] sl = Shard.Xml(sp[0]).Split(','); // string array made of xml entry corresponding to chosen profession, or default
+/*
+            if (Core.ML) // this section causes all chars to go to default starting location, enable it if you like.
             {
                 //if( args.State != null && args.State.NewHaven )
-                return m_NewHavenInfo;	//We don't get the client Version until AFTER Character creation
+                return new CityInfo(sl[0], sl[1], Convert.ToInt32(sl[2]), Convert.ToInt32(sl[3]), Convert.ToInt32(sl[4]), sm[Convert.ToInt32(sl[5])]); //m_NewHavenInfo;	//We don't get the client Version until AFTER Character creation
                 //return args.City;  TODO: Uncomment when the old quest system is actually phased out
             }
-
-            bool useHaven = isYoung;
-
+*/
             ClientFlags flags = args.State == null ? ClientFlags.None : args.State.Flags;
             Mobile m = args.Mobile;
 
-            switch ( args.Profession )
+            switch ( args.Profession ) // Check client flags for AOS / SE professions
             {
-                case 4: //Necro
+				case 4: //Necro
                     {
                         if ((flags & ClientFlags.Malas) != 0)
                         {
-                            return new CityInfo("Umbra", "Mardoth's Tower", 2114, 1301, -50, Map.Malas);
+							break;
                         }
                         else
                         {
@@ -795,15 +798,11 @@ namespace Server.Misc
 
                         break;
                     }
-                case 5:	//Paladin
-                    {
-                        return m_NewHavenInfo;
-                    }
                 case 6:	//Samurai
                     {
                         if ((flags & ClientFlags.Tokuno) != 0)
                         {
-                            return new CityInfo("Samurai DE", "Haoti's Grounds", 368, 780, -1, Map.Malas);
+							break;
                         }
                         else
                         {
@@ -825,7 +824,7 @@ namespace Server.Misc
                     {
                         if ((flags & ClientFlags.Tokuno) != 0)
                         {
-                            return new CityInfo("Ninja DE", "Enimo's Residence", 414,	823, -1, Map.Malas);
+							break;
                         }
                         else
                         {
@@ -841,13 +840,20 @@ namespace Server.Misc
                             * */
                         }
 
-                        break;
-                    }
-            }
-
-            if (useHaven)
-                return m_NewHavenInfo;
-            else
+                      break;
+                  }
+			} 
+			if (useHaven) // if young or client flags check in profession switch failed override chosen location and return default
+			{
+				sl = Shard.Xml(sp[0]).Split(',');
+				return new CityInfo(sl[0], sl[1], Convert.ToInt32(sl[2]), Convert.ToInt32(sl[3]), Convert.ToInt32(sl[4]), sm[Convert.ToInt32(sl[5])]);
+			}
+			if ( args.Profession > 0 ) // if not young, and chose a profession, and passed flag check, return profession specific location
+			{
+				sl = Shard.Xml(sp[args.Profession]).Split(',');
+				return new CityInfo(sl[0], sl[1], Convert.ToInt32(sl[2]), Convert.ToInt32(sl[3]), Convert.ToInt32(sl[4]), sm[Convert.ToInt32(sl[5])]);
+			}			
+            else // If not young and chose advanced, return chosen location from client gump
                 return args.City;
         }
 

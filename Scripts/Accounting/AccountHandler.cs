@@ -20,8 +20,9 @@ namespace Server.Misc
     public class AccountHandler
     {
         public static PasswordProtection ProtectPasswords = PasswordProtection.NewCrypt;
-        private static readonly int MaxAccountsPerIP = 1;
-        private static readonly bool AutoAccountCreation = true;
+        private static readonly int MaxAccountsPerIP = Convert.ToInt32(Shard.Xml("accperip"));
+		private static readonly bool[] tf = new bool[] { false, true };
+        private static readonly bool AutoAccountCreation = tf[Convert.ToInt32(Shard.Xml("autoacc"))];
         private static readonly bool RestrictDeletion = !TestCenter.Enabled;
         private static readonly TimeSpan DeleteDelay = TimeSpan.FromDays(7.0);
         private static readonly CityInfo[] StartingCities = new CityInfo[]

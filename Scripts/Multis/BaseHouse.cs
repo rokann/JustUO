@@ -117,7 +117,7 @@ namespace Server.Multis
         {
             get
             {
-                return TimeSpan.FromDays(StartupReader.GetHousedecay());
+                return TimeSpan.FromDays(Convert.ToDouble(Shard.Xml("housedecay")));
             }
         }
 
@@ -3488,7 +3488,7 @@ namespace Server.Multis
             if (list == null)
                 return false;
 
-            for (int i = 0; i < list.Count; ++i)
+            for (int i = Convert.ToInt32(Shard.Xml("maxhouses")) - 1; i < list.Count; ++i)
             {
                 BaseHouse h = list[i];
 

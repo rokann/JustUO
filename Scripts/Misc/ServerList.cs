@@ -57,7 +57,7 @@ namespace Server.Misc
         */
 		public static readonly string Address = null;
 
-		public static readonly string ServerName = StartupReader.GetShardName();
+		public static readonly string ServerName = Shard.Xml("shardname");
 		public static readonly bool AutoDetect = true;
 
 		private static IPAddress _PublicAddress;

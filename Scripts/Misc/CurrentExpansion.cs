@@ -1,4 +1,5 @@
 #region References
+using System;
 using Server.Network;
 using Server.Accounting;
 #endregion
@@ -7,7 +8,7 @@ namespace Server
 {
 	public class CurrentExpansion
 	{
-		private static readonly Expansion Expansion = Expansion.TOL;
+		private static readonly Expansion Expansion = (Expansion)Convert.ToInt32(Shard.Xml("era"));
 
 		public static void Configure()
 		{

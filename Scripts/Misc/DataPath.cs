@@ -13,7 +13,7 @@ namespace Server.Misc
         *  private static string CustomPath = @"C:\Program Files\Ultima Online";
         */
 	#if !MONO
-	private static readonly string CustomPath = StartupReader.GetClientPath();
+	private static readonly string CustomPath = Shard.Xml("clientpath");
 	#else
         private static readonly string CustomPath = Core.BaseDirectory + "/muls";
 	#endif

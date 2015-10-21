@@ -298,7 +298,7 @@ namespace Server.Mobiles
 		public const bool BondingEnabled = true;
 
 		public virtual bool IsBondable { get { return (BondingEnabled && !Summoned); } }
-		public virtual TimeSpan BondingDelay { get { return TimeSpan.FromDays(StartupReader.GetBonding()); } }
+		public virtual TimeSpan BondingDelay { get { return TimeSpan.FromDays(Convert.ToDouble(Shard.Xml("bonding"))); } }
 		public virtual TimeSpan BondingAbandonDelay { get { return TimeSpan.FromDays(1.0); } }
 
 		public override bool CanRegenHits { get { return !m_IsDeadPet && base.CanRegenHits; } }
