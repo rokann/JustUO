@@ -776,7 +776,7 @@ namespace Server.Misc
 
             switch ( args.Profession ) // Check client flags for AOS / SE professions set usehaven true if failed
             {
-				case 4: //Necro
+                case 4: //Necro
                     {
                         if ((flags & ClientFlags.Malas) != 0)
                         {
