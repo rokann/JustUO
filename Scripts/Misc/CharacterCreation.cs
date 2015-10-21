@@ -760,9 +760,9 @@ namespace Server.Misc
         private static CityInfo GetStartLocation(CharacterCreatedEventArgs args, bool isYoung)
         {
             bool useHaven = Convert.ToBoolean(Shard.Xml("startloc/usehaven")); //isYoung;
-			Map[] sm = new Map[] { Map.Felucca, Map.Trammel, Map.Ilshenar, Map.Malas, Map.Tokuno, Map.TerMur }; // array used to indicate map 0-5
-			string[] sp = new string[] { "startloc/default", "startloc/warrior", "startloc/mage", "startloc/blacksmith", "startloc/necro", "startloc/paladin", "startloc/samurai", "startloc/ninja" };
-			string[] sl = Shard.Xml(sp[0]).Split(','); // string array made of xml entry corresponding to chosen profession, or default
+            Map[] sm = new Map[] { Map.Felucca, Map.Trammel, Map.Ilshenar, Map.Malas, Map.Tokuno, Map.TerMur }; // array used to indicate map 0-5
+            string[] sp = new string[] { "startloc/default", "startloc/warrior", "startloc/mage", "startloc/blacksmith", "startloc/necro", "startloc/paladin", "startloc/samurai", "startloc/ninja" };
+            string[] sl = Shard.Xml(sp[0]).Split(','); // string array made of xml entry corresponding to chosen profession, or default
 /*
             if (Core.ML) // this section causes all chars to go to default starting location, enable it if you like.
             {
@@ -780,7 +780,7 @@ namespace Server.Misc
                     {
                         if ((flags & ClientFlags.Malas) != 0)
                         {
-							break;
+                            break;
                         }
                         else
                         {
@@ -802,7 +802,7 @@ namespace Server.Misc
                     {
                         if ((flags & ClientFlags.Tokuno) != 0)
                         {
-							break;
+                            break;
                         }
                         else
                         {
@@ -824,7 +824,7 @@ namespace Server.Misc
                     {
                         if ((flags & ClientFlags.Tokuno) != 0)
                         {
-							break;
+                            break;
                         }
                         else
                         {
@@ -842,17 +842,17 @@ namespace Server.Misc
 
                       break;
                   }
-			} 
-			if (useHaven || isYoung) // if young or if usehaven is true, override chosen location and return default
-			{
-				sl = Shard.Xml(sp[0]).Split(',');
-				return new CityInfo(sl[0], sl[1], Convert.ToInt32(sl[2]), Convert.ToInt32(sl[3]), Convert.ToInt32(sl[4]), sm[Convert.ToInt32(sl[5])]);
-			}
-			if ( args.Profession > 0 ) // if not young, and chose a profession, and passed flag check, return profession specific location
-			{
-				sl = Shard.Xml(sp[args.Profession]).Split(',');
-				return new CityInfo(sl[0], sl[1], Convert.ToInt32(sl[2]), Convert.ToInt32(sl[3]), Convert.ToInt32(sl[4]), sm[Convert.ToInt32(sl[5])]);
-			}			
+            }
+            if (useHaven || isYoung) // if young or if usehaven is true, override chosen location and return default
+            {
+                sl = Shard.Xml(sp[0]).Split(',');
+                return new CityInfo(sl[0], sl[1], Convert.ToInt32(sl[2]), Convert.ToInt32(sl[3]), Convert.ToInt32(sl[4]), sm[Convert.ToInt32(sl[5])]);
+            }
+            if ( args.Profession > 0 ) // if not young, and chose a profession, and passed flag check, return profession specific location
+            {
+                sl = Shard.Xml(sp[args.Profession]).Split(',');
+                return new CityInfo(sl[0], sl[1], Convert.ToInt32(sl[2]), Convert.ToInt32(sl[3]), Convert.ToInt32(sl[4]), sm[Convert.ToInt32(sl[5])]);
+            }			
             else // If not young and chose advanced, return chosen location from client gump
                 return args.City;
         }
