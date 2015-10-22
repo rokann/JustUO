@@ -764,7 +764,7 @@ namespace Server.Misc
             string[] sl = Shard.Xml(sp[0]).Split(','); // string array made of xml entry corresponding to chosen profession, or default
             ClientFlags flags = args.State == null ? ClientFlags.None : args.State.Flags;
             Mobile m = args.Mobile;
-			if ((flags & ClientFlags.Malas) == 0 & args.Profession == 4) 
+            if ((flags & ClientFlags.Malas) == 0 & args.Profession == 4) 
             {
                 useHaven = true; 
                 new BadStartMessage(m, 1062205);
@@ -776,9 +776,9 @@ namespace Server.Misc
                 * Haven on the Trammel facet.
                 * */
             }
-			if ((flags & ClientFlags.Tokuno) == 0 & args.Profession >= 6)
-			{
-			    useHaven = true;
+            if ((flags & ClientFlags.Tokuno) == 0 & args.Profession >= 6)
+            {
+                useHaven = true;
                 new BadStartMessage(m, 1063487);
                 /*
                 * Unfortunately you are playing on a *NON-Samurai-Empire* game 
@@ -787,7 +787,7 @@ namespace Server.Misc
                 * without an SE client. You are now being taken to the city of 
                 * Haven on the Trammel facet.
                 * */
-			}
+            }
             if (useHaven || isYoung) // if young or if usehaven is true, override chosen location and return default
             {
                 sl = Shard.Xml(sp[0]).Split(',');
