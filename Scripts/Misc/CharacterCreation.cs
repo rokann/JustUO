@@ -10,7 +10,6 @@ namespace Server.Misc
 {
     public class CharacterCreation
     {
-        //private static readonly CityInfo m_NewHavenInfo; = new CityInfo("New Haven", "The Bountiful Harvest Inn", 3503, 2574, 14, Map.Trammel);
         private static Mobile m_Mobile;
 
 		[CallPriority(Int32.MinValue)]
@@ -763,86 +762,32 @@ namespace Server.Misc
             Map[] sm = new Map[] { Map.Felucca, Map.Trammel, Map.Ilshenar, Map.Malas, Map.Tokuno, Map.TerMur }; // array used to indicate map 0-5
             string[] sp = new string[] { "startloc/default", "startloc/warrior", "startloc/mage", "startloc/blacksmith", "startloc/necro", "startloc/paladin", "startloc/samurai", "startloc/ninja" };
             string[] sl = Shard.Xml(sp[0]).Split(','); // string array made of xml entry corresponding to chosen profession, or default
-/*
-            if (Core.ML) // this section causes all chars to go to default starting location, enable it if you like.
-            {
-                //if( args.State != null && args.State.NewHaven )
-                return new CityInfo(sl[0], sl[1], Convert.ToInt32(sl[2]), Convert.ToInt32(sl[3]), Convert.ToInt32(sl[4]), sm[Convert.ToInt32(sl[5])]); //m_NewHavenInfo;	//We don't get the client Version until AFTER Character creation
-                //return args.City;  TODO: Uncomment when the old quest system is actually phased out
-            }
-*/
             ClientFlags flags = args.State == null ? ClientFlags.None : args.State.Flags;
             Mobile m = args.Mobile;
-
-            switch ( args.Profession ) // Check client flags for AOS / SE professions set usehaven true if failed
+			if ((flags & ClientFlags.Malas) == 0 & args.Profession == 4) 
             {
-                case 4: //Necro
-                    {
-                        if ((flags & ClientFlags.Malas) != 0)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            useHaven = true; 
-
-                            new BadStartMessage(m, 1062205);
-                            /*
-                            * Unfortunately you are playing on a *NON-Age-Of-Shadows* game 
-                            * installation and cannot be transported to Malas.  
-                            * You will not be able to take your new player quest in Malas 
-                            * without an AOS client.  You are now being taken to the city of 
-                            * Haven on the Trammel facet.
-                            * */
-                        }
-
-                        break;
-                    }
-                case 6:	//Samurai
-                    {
-                        if ((flags & ClientFlags.Tokuno) != 0)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            useHaven = true;
-
-                            new BadStartMessage(m, 1063487);
-                            /*
-                            * Unfortunately you are playing on a *NON-Samurai-Empire* game 
-                            * installation and cannot be transported to Tokuno. 
-                            * You will not be able to take your new player quest in Tokuno 
-                            * without an SE client. You are now being taken to the city of 
-                            * Haven on the Trammel facet.
-                            * */
-                        }
-
-                        break;
-                    }
-                case 7:	//Ninja
-                    {
-                        if ((flags & ClientFlags.Tokuno) != 0)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            useHaven = true;
-
-                            new BadStartMessage(m, 1063487);
-                            /*
-                            * Unfortunately you are playing on a *NON-Samurai-Empire* game 
-                            * installation and cannot be transported to Tokuno. 
-                            * You will not be able to take your new player quest in Tokuno 
-                            * without an SE client. You are now being taken to the city of 
-                            * Haven on the Trammel facet.
-                            * */
-                        }
-
-                      break;
-                  }
+                useHaven = true; 
+                new BadStartMessage(m, 1062205);
+                /*
+                * Unfortunately you are playing on a *NON-Age-Of-Shadows* game 
+                * installation and cannot be transported to Malas.  
+                * You will not be able to take your new player quest in Malas 
+                * without an AOS client.  You are now being taken to the city of 
+                * Haven on the Trammel facet.
+                * */
             }
+			if ((flags & ClientFlags.Tokuno) == 0 & args.Profession >= 6)
+			{
+			    useHaven = true;
+                new BadStartMessage(m, 1063487);
+                /*
+                * Unfortunately you are playing on a *NON-Samurai-Empire* game 
+                * installation and cannot be transported to Tokuno. 
+                * You will not be able to take your new player quest in Tokuno 
+                * without an SE client. You are now being taken to the city of 
+                * Haven on the Trammel facet.
+                * */
+			}
             if (useHaven || isYoung) // if young or if usehaven is true, override chosen location and return default
             {
                 sl = Shard.Xml(sp[0]).Split(',');
