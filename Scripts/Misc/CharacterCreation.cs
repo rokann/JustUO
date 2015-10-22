@@ -692,7 +692,7 @@ namespace Server.Misc
                 pm.Profession = args.Profession;
 
                 if (pm.IsPlayer() && ((Account)pm.Account).Young)
-                    young = pm.Young = true;
+                    young = pm.Young = Convert.ToBoolean(Shard.Xml("young"));
 
                 if (pm.Race == Race.Gargoyle) // Gargoyles start with 2000 loyalty points
                     pm.Exp = 2000;

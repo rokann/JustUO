@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <startupinfo>
-  <shardname>My Shard</shardname>
-  <clientpath>C:\Program Files (x86)\Electronic Arts\Ultima Online Classic</clientpath>
+  <shardname>test</shardname>
+  <clientpath>C:\Users\Riktor\Downloads\JustUO-master\Muls</clientpath>
   <saves>15</saves>
   <rewards>30</rewards>
   <skillcap>7000</skillcap>
@@ -9,11 +9,12 @@
   <housedecay>5</housedecay>
   <bonding>7</bonding>
   <autoacc>true</autoacc>
-  <accperip>2</accperip>
+  <accperip>1</accperip>
   <ipperacc>10</ipperacc>
   <maxhouses>1</maxhouses>
   <port>2593</port>
   <era>10</era>
+  <young>true</young>
   <startloc>
     <usehaven>true</usehaven>
     <default>New Haven,The Bountiful Harvest Inn,3503,2574,14,1</default>
